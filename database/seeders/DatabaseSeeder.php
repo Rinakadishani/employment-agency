@@ -102,3 +102,5 @@ class DatabaseSeeder extends Seeder
         }
     }
 }
+
+//made some changes
