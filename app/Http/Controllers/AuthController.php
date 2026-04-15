@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\RefreshToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -32,7 +33,7 @@ class AuthController extends Controller
             'emri'         => $request->emri,
             'mbiemri'      => $request->mbiemri,
             'email'        => $request->email,
-            'password'     => bcrypt($request->password),
+            'password'     => $request->password,
             'phone_number' => $request->phone_number,
             'statusi'      => true,
         ]);
@@ -71,13 +72,15 @@ class AuthController extends Controller
             ], 422);
         }
 
-        if (!$token = auth('api')->attempt($request->only('email', 'password'))) {
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);
         }
 
-        $user = auth('api')->user();
+        $token = auth('api')->login($user);
 
         if (!$user->statusi) {
             auth('api')->logout();
