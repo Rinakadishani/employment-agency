@@ -19,6 +19,10 @@ Route::get('/jobs', function () {
     return Inertia::render('Jobs/Index');
 })->name('jobs');
 
+Route::get('/jobs/{id}', function ($id) {
+    return Inertia::render('Jobs/Show', ['id' => $id]);
+})->name('jobs.show');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index');
 })->name('dashboard');
