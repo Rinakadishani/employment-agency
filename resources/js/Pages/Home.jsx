@@ -1,20 +1,38 @@
+import MainLayout from '../Layouts/MainLayout'
+import { useAuth } from '../Contexts/AuthContext'
+
 export default function Home() {
+    const { isAuthenticated, user } = useAuth()
+
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-            <div className="text-center">
-                <h1 className="text-4xl font-bold text-indigo-600 mb-4">
-                    Employment Agency
+        <MainLayout>
+            <div className="text-center py-20">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                    Find your next opportunity
                 </h1>
-                <p className="text-gray-500 text-lg">
-                    Laravel + React + Inertia.js is working! ✓
+                <p className="text-lg text-gray-500 mb-8">
+                    Browse hundreds of job positions from top companies
                 </p>
-                <div className="mt-6 flex gap-3 justify-center">
-                    <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">Laravel 12</span>
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">React 18</span>
-                    <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">Tailwind v4</span>
-                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">JWT Auth</span>
-                </div>
+                {isAuthenticated ? (
+                    <div>
+                        <p className="text-indigo-600 font-medium mb-4">
+                            Welcome back, {user?.emri}!
+                        </p>
+                        <a href="/jobs" className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">
+                            Browse Jobs
+                        </a>
+                    </div>
+                ) : (
+                    <div className="flex gap-3 justify-center">
+                        <a href="/register" className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">
+                            Get Started
+                        </a>
+                        <a href="/login" className="bg-white text-indigo-600 border border-indigo-600 px-6 py-3 rounded-lg hover:bg-indigo-50">
+                            Sign In
+                        </a>
+                    </div>
+                )}
             </div>
-        </div>
+        </MainLayout>
     )
 }
