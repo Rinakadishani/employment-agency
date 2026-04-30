@@ -12,6 +12,7 @@ use App\Http\Controllers\PunonjesiAgjenciseController;
 use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DashboardController;
 
 // Public auth routes
 Route::prefix('auth')->group(function () {
@@ -105,4 +106,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('roles',         [RoleController::class, 'store']);
     Route::put('roles/{role}',   [RoleController::class, 'update']);
     Route::delete('roles/{role}',[RoleController::class, 'destroy']);
+    
+    // Dashboard
+    Route::get('dashboard/stats', [DashboardController::class, 'stats']);
 });
