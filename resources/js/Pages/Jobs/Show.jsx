@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import { Link } from '@inertiajs/react'
 import MainLayout from '../../Layouts/MainLayout'
 import { useAuth } from '../../Contexts/AuthContext'
@@ -18,7 +18,7 @@ export default function JobShow({ id }) {
 
     const fetchJob = async () => {
         try {
-            const response = await axios.get(`/api/vendet-punes/${id}`)
+            const response = await api.get(`/api/vendet-punes/${id}`)
             setJob(response.data.vendi)
         } catch (err) {
             setError('Job not found')

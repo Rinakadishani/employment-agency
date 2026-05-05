@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../utils/axiosInstance'
 
 const AuthContext = createContext(null)
 
@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
             fetchUser()
         } else {
             setLoading(false)
@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get('/api/auth/me')
+            const response = await api.get('/api/auth/me')
             setUser(response.data.user)
         } catch (error) {
             logout()
@@ -29,20 +29,20 @@ export function AuthProvider({ children }) {
     }
 
     const login = async (email, password) => {
-        const response = await axios.post('/api/auth/login', { email, password })
+        const response = await api.post('/api/auth/login', { email, password })
         const { access_token, user } = response.data
         localStorage.setItem('access_token', access_token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+        api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
         setToken(access_token)
         setUser(user)
         return user
     }
 
     const register = async (data) => {
-        const response = await axios.post('/api/auth/register', data)
+        const response = await api.post('/api/auth/register', data)
         const { access_token, user } = response.data
         localStorage.setItem('access_token', access_token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+        api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
         setToken(access_token)
         setUser(user)
         return user
@@ -50,12 +50,12 @@ export function AuthProvider({ children }) {
 
     const logout = async () => {
         try {
-            await axios.post('/api/auth/logout')
+            await api.post('/api/auth/logout')
         } catch (error) {
             // continue logout even if request fails
         }
         localStorage.removeItem('access_token')
-        delete axios.defaults.headers.common['Authorization']
+        delete api.defaults.headers.common['Authorization']
         setToken(null)
         setUser(null)
     }
@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
         return user?.roles?.some(r => r.normalized_name === role.toUpperCase())
     }
 
-    const isAdmin = () => hasRole('ADMIN')
+    const isAdmin   = () => hasRole('ADMIN')
     const isManager = () => hasRole('MANAGER')
 
     return (

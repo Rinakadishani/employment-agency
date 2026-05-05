@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../../utils/axiosInstance'
 import MainLayout from '../../../Layouts/MainLayout'
 import InputField from '../../../Components/InputField'
 import Alert from '../../../Components/Alert'
@@ -15,7 +15,7 @@ export default function UserCreate() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        axios.get('/api/roles').then(r => setRoles(r.data))
+        api.get('/api/roles').then(r => setRoles(r.data))
     }, [])
 
     const handleChange = (e) => {
@@ -27,7 +27,7 @@ export default function UserCreate() {
         e.preventDefault()
         setLoading(true)
         try {
-            await axios.post('/api/users', form)
+            await api.post('/api/users', form)
             setSuccess('User created successfully!')
             setForm({ emri: '', mbiemri: '', email: '', password: '', phone_number: '', role_id: '' })
         } catch (err) {

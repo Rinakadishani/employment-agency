@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import Alert from '../../Components/Alert'
 import MainLayout from '../../Layouts/MainLayout'
 
@@ -15,7 +15,7 @@ export default function AplimiCreate({ vendId }) {
         setError('')
 
         try {
-            await axios.post('/api/aplikimet', {
+            await api.post('/api/aplikimet', {
                 vend_id: vendId,
                 ...form,
             })

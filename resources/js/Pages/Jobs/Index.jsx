@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import { Link } from '@inertiajs/react'
 import MainLayout from '../../Layouts/MainLayout'
 
@@ -24,7 +24,7 @@ export default function JobsIndex() {
         setLoading(true)
 
         try {
-            const response = await axios.get('/api/vendet-punes', { params })
+            const response = await api.get('/api/vendet-punes', { params })
             setJobs(response.data.data ?? [])
         } catch (error) {
             console.error('Failed to fetch jobs', error)

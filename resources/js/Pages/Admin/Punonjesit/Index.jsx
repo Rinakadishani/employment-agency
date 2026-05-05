@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../../utils/axiosInstance'
 import MainLayout from '../../../Layouts/MainLayout'
 import Alert from '../../../Components/Alert'
 
@@ -13,7 +13,7 @@ export default function PunonjesitIndex() {
     const fetchPunonjesit = async () => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/punonjesit')
+            const response = await api.get('/api/punonjesit')
             setPunonjesit(response.data.data)
         } catch (err) {
             console.error(err)
@@ -24,7 +24,7 @@ export default function PunonjesitIndex() {
 
     const handleToggle = async (p) => {
         try {
-            await axios.patch(`/api/punonjesit/${p.punonjes_id}/toggle`)
+            await api.patch(`/api/punonjesit/${p.punonjes_id}/toggle`)
             setMessage('Status updated successfully')
             fetchPunonjesit()
         } catch (err) {
@@ -35,7 +35,7 @@ export default function PunonjesitIndex() {
     const handleDelete = async (p) => {
         if (!confirm(`Delete ${p.emri} ${p.mbiemri}?`)) return
         try {
-            await axios.delete(`/api/punonjesit/${p.punonjes_id}`)
+            await api.delete(`/api/punonjesit/${p.punonjes_id}`)
             setMessage('Staff member deleted')
             fetchPunonjesit()
         } catch (err) {

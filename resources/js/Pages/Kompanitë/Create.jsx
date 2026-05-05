@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from '@inertiajs/react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import MainLayout from '../../Layouts/MainLayout'
 import InputField from '../../Components/InputField'
 import Alert from '../../Components/Alert'
@@ -33,7 +33,7 @@ export default function KompaniaCreate() {
         setSuccess('')
 
         try {
-            await axios.post('/api/kompanitë', form)
+            await api.post('/api/kompanitë', form)
             setSuccess('Company created successfully!')
             setForm(initialForm)
             setErrors({})

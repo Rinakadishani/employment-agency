@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import MainLayout from '../../Layouts/MainLayout'
 
 const statusColors = {
@@ -21,7 +21,7 @@ export default function AplimiIndex() {
     const fetchAplikimet = async () => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/aplikimet')
+            const response = await api.get('/api/aplikimet')
             setAplikimet(response.data.data)
         } catch (err) {
             console.error(err)
@@ -34,7 +34,7 @@ export default function AplimiIndex() {
         if (!window.confirm('Are you sure you want to withdraw this application?')) return
 
         try {
-            await axios.delete(`/api/aplikimet/${id}`)
+            await api.delete(`/api/aplikimet/${id}`)
             fetchAplikimet()
         } catch (err) {
             console.error(err)

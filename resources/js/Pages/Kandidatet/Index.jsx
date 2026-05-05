@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@inertiajs/react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import MainLayout from '../../Layouts/MainLayout'
 
 export default function KandidatetIndex() {
@@ -15,7 +15,7 @@ export default function KandidatetIndex() {
     const fetchKandidatet = async (params = {}) => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/kandidatet', { params })
+            const response = await api.get('/api/kandidatet', { params })
             setKandidatet(response.data.data)
         } catch (err) {
             console.error(err)

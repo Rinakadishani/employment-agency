@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import MainLayout from '../../Layouts/MainLayout'
 
 export default function IntervistIndex() {
@@ -13,7 +13,7 @@ export default function IntervistIndex() {
     const fetchIntervistat = async () => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/intervistat')
+            const response = await api.get('/api/intervistat')
             setIntervistat(response.data.data)
         } catch (err) {
             console.error(err)

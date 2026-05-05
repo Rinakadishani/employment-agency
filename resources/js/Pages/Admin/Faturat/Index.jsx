@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../../utils/axiosInstance'
 import MainLayout from '../../../Layouts/MainLayout'
 import Alert from '../../../Components/Alert'
 
@@ -20,7 +20,7 @@ export default function FaturatIndex() {
     const fetchFaturat = async (params = {}) => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/faturat', { params })
+            const response = await api.get('/api/faturat', { params })
             setFaturat(response.data.data)
         } catch (err) {
             console.error(err)
@@ -31,7 +31,7 @@ export default function FaturatIndex() {
 
     const handleStatusUpdate = async (fatura, statusi) => {
         try {
-            await axios.put(`/api/faturat/${fatura.fature_id}`, { statusi })
+            await api.put(`/api/faturat/${fatura.fature_id}`, { statusi })
             setMessage('Invoice status updated')
             fetchFaturat()
         } catch (err) {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../utils/axiosInstance'
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell
@@ -38,7 +38,7 @@ export default function DashboardIndex() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get('/api/dashboard/stats')
+        api.get('/api/dashboard/stats')
             .then(r => setStats(r.data))
             .catch(console.error)
             .finally(() => setLoading(false))

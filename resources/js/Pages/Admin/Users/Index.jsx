@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../../utils/axiosInstance'
 import MainLayout from '../../../Layouts/MainLayout'
 import Alert from '../../../Components/Alert'
 
@@ -14,7 +14,7 @@ export default function UsersIndex() {
     const fetchUsers = async (params = {}) => {
         setLoading(true)
         try {
-            const response = await axios.get('/api/users', { params })
+            const response = await api.get('/api/users', { params })
             setUsers(response.data.data)
         } catch (err) {
             console.error(err)
@@ -25,7 +25,7 @@ export default function UsersIndex() {
 
     const handleToggleStatus = async (user) => {
         try {
-            await axios.patch(`/api/users/${user.id}/toggle-status`)
+            await api.patch(`/api/users/${user.id}/toggle-status`)
             setMessage(`User ${user.emri} status updated`)
             fetchUsers()
         } catch (err) {
@@ -36,7 +36,7 @@ export default function UsersIndex() {
     const handleDelete = async (user) => {
         if (!confirm(`Delete ${user.emri} ${user.mbiemri}?`)) return
         try {
-            await axios.delete(`/api/users/${user.id}`)
+            await api.delete(`/api/users/${user.id}`)
             setMessage('User deleted successfully')
             fetchUsers()
         } catch (err) {
