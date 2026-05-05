@@ -26,7 +26,7 @@ export default function MainLayout({ children }) {
                         {isAuthenticated ? (
                             <>
                                 {(isAdmin() || isManager()) && (
-                                    <Link href="/dashboard" className="text-sm text-gray-600 hover:text-indigo-600">
+                                    <Link href="/dashboard" className="text-sm text-gray-600 hover:text-indigo-600 font-medium">
                                         Dashboard
                                     </Link>
                                 )}
