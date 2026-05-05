@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from '@inertiajs/react'
 import api from '../../utils/axiosInstance'
 import MainLayout from '../../Layouts/MainLayout'
+import { TableSkeleton } from '../../Components/LoadingSkeleton'
 
 export default function KandidatetIndex() {
     const [kandidatet, setKandidatet] = useState([])
@@ -73,7 +74,7 @@ export default function KandidatetIndex() {
             </div>
 
             {loading ? (
-                <div className="py-12 text-center text-gray-500">Loading...</div>
+                <TableSkeleton rows={6} cols={5} />
             ) : (
                 <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                     <table className="w-full text-sm">

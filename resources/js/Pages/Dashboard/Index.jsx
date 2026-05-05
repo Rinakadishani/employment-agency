@@ -5,6 +5,7 @@ import {
     Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell
 } from 'recharts'
 import MainLayout from '../../Layouts/MainLayout'
+import { StatCardSkeleton } from '../../Components/LoadingSkeleton'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const PIE_COLORS = ['#6366F1', '#F59E0B', '#8B5CF6', '#10B981', '#EF4444']
@@ -47,11 +48,14 @@ export default function DashboardIndex() {
     if (loading) {
         return (
             <MainLayout>
-                <div className="flex items-center justify-center py-20">
-                    <div className="text-center">
-                        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-                        <p className="text-gray-500 text-sm">Loading dashboard...</p>
-                    </div>
+                <div className="mb-8">
+                    <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+                    <p className="text-gray-500 mt-1">Employment Agency overview</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <StatCardSkeleton key={i} />
+                    ))}
                 </div>
             </MainLayout>
         )

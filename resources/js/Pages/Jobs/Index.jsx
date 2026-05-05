@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import api from '../../utils/axiosInstance'
 import { Link } from '@inertiajs/react'
 import MainLayout from '../../Layouts/MainLayout'
+import { CardSkeleton } from '../../Components/LoadingSkeleton'
 
 const defaultFilters = {
     search: '',
@@ -100,7 +101,11 @@ export default function JobsIndex() {
             </div>
 
             {loading ? (
-                <div className="py-12 text-center text-gray-500">Loading jobs...</div>
+                <div className="grid gap-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                        <CardSkeleton key={i} />
+                    ))}
+                </div>
             ) : jobs.length === 0 ? (
                 <div className="py-12 text-center text-gray-500">No job positions found.</div>
             ) : (
