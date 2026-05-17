@@ -30,6 +30,16 @@ export default function KandidatetIndex() {
         fetchKandidatet({ search })
     }
 
+    const handleDelete = async (id) => {
+        if (!confirm('Are you sure you want to delete this candidate?')) return
+        try {
+            await api.delete(`/api/kandidatet/${id}`)
+            fetchKandidatet()
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <MainLayout>
             <div className="mb-6 flex items-center justify-between">
@@ -117,6 +127,12 @@ export default function KandidatetIndex() {
                                                 >
                                                     Edit
                                                 </Link>
+                                                <button
+                                                    onClick={() => handleDelete(k.kandidat_id)}
+                                                    className="text-xs text-red-500 hover:underline"
+                                                >
+                                                    Delete
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>

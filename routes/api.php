@@ -13,6 +13,9 @@ use App\Http\Controllers\FaturaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CvController;
+use App\Http\Controllers\AftesiaController;
+
 
 // Public auth routes
 Route::prefix('auth')->group(function () {
@@ -26,6 +29,16 @@ Route::prefix('auth')->middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('me',      [AuthController::class, 'me']);
     Route::post('auth/revoke-all', [AuthController::class, 'revokeAllTokens']);
+    Route::get('cvt',                    [CvController::class, 'index']);
+    Route::post('cvt',                   [CvController::class, 'store']);
+    Route::patch('cvt/{cv}/set-active',  [CvController::class, 'setActive']);
+    Route::delete('cvt/{cv}',            [CvController::class, 'destroy']);
+    Route::get('aftesite',                      [AftesiaController::class, 'index']);
+    Route::post('aftesite',                     [AftesiaController::class, 'store']);
+    Route::put('aftesite/{aftesia}',            [AftesiaController::class, 'update']);  
+    Route::delete('aftesite/{aftesia}',         [AftesiaController::class, 'destroy']);
+    Route::post('aftesite/assign',              [AftesiaController::class, 'assignToKandidat']);
+    Route::post('aftesite/remove',              [AftesiaController::class, 'removeFromKandidat']);
 });
 
 // Public routes

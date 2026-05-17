@@ -22,6 +22,7 @@ Route::get('/kandidatet/{id}/edit', fn($id) => Inertia::render('Kandidatet/Edit'
 Route::get('/kompanitë', fn() => Inertia::render('Kompanitë/Index'))->name('kompanitë');
 Route::get('/kompanitë/create', fn() => Inertia::render('Kompanitë/Create'))->name('kompanitë.create');
 Route::get('/kompanitë/{id}', fn($id) => Inertia::render('Kompanitë/Show', ['id' => $id]))->name('kompanitë.show');
+Route::get('/kompanitë/{id}/edit', fn($id) => Inertia::render('Kompanitë/Edit', ['id' => $id]))->name('kompanitë.edit');
 
 // Applications
 Route::get('/aplikimet', fn() => Inertia::render('Aplikimet/Index'))->name('aplikimet');
@@ -47,3 +48,5 @@ Route::get('/admin/punonjesit/{id}/edit', fn($id) => Inertia::render('Admin/Puno
 
 // Dashboard
 Route::get('/dashboard', fn() => Inertia::render('Dashboard/Index'))->name('dashboard');
+Route::get('/aftesite', fn() => Inertia::render('Aftesite/Index'))->name('aftesite');
+Route::get('/cvt', fn() => Inertia::render('CV/Index'))->name('cvt');
